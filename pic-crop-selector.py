@@ -120,7 +120,6 @@ class CropSelector:
         self.canvas.bind("<Button-3>", self.start_pan)  # Right click to pan
         self.canvas.bind("<B3-Motion>", self.do_pan)
         self.canvas.bind("<ButtonRelease-3>", self.end_pan)
-        self.canvas.bind("<MouseWheel>", self.on_mouse_wheel)
         
         # Bind keyboard events for corner fine-tuning
         self.root.bind("<Key>", self.on_key_press)
@@ -208,7 +207,7 @@ class CropSelector:
         inst_frame.pack(fill=tk.X, pady=(10, 0))
         
         instructions = ttk.Label(inst_frame, 
-            text=f"Instructions: Left-click+drag: Draw rectangle • Right-click+drag: Pan • Mouse wheel: Zoom • Arrow keys: Fine-tune corner • Resize window for larger view\nImage size: {self.original_image.width}x{self.original_image.height} pixels",
+            text=f"Instructions: Left-click+drag: Draw rectangle • Right-click+drag: Pan • Arrow keys: Fine-tune corner • Resize window for larger view\nImage size: {self.original_image.width}x{self.original_image.height} pixels",
             justify=tk.LEFT)
         instructions.pack(side=tk.LEFT)
         
@@ -297,12 +296,6 @@ class CropSelector:
         self.update_display_image()
         self.redraw_selection()
     
-    def on_mouse_wheel(self, event):
-        # Zoom with mouse wheel
-        if event.delta > 0:
-            self.zoom_in()
-        else:
-            self.zoom_out()
     
     def redraw_selection(self):
         """Redraw the current selection rectangle at the new zoom level"""
